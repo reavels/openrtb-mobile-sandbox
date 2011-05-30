@@ -1,0 +1,20 @@
+{
+  "type": "record", 
+  "namespace": "org.openrtb.mobile",
+  "name": "BidRequest", 
+  "doc" : "Top-Level BidRequest Object from OpenRTB Mobile 1.0 Spec", 
+  "fields": [
+      {"name": "id", "type": "string", "required":"true","comment":"Unique ID of the bid request (i.e., the overall auction ID)."},
+      {"name": "at", "type": ["int", "null"], "required":"false","comment":"Auction type - 1 indicates 1st Price, others denote alternate rules."},
+      {"name": "imp", "type": {"type": "array", "items": {
+		  "type": "record", 
+		  "namespace": "org.openrtb.mobile",
+		  "name": "BidImpression", 
+		  "doc" : "Bid Impression Object used in Bid Request from OpenRTB Mobile 1.0 Spec", 
+		  "fields": [
+		      {"name": "impid", "type": "string","required":"true","comment":"Unique ID of the impression."}
+		  ]
+		}      
+      }, "required":"true","comment":"1 object per impression being offered for bid"}
+  ]
+}

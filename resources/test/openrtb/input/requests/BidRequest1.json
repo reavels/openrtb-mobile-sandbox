@@ -1,0 +1,10 @@
+{
+  "id" : "BidRequest1",
+  "at" : {
+    "int" : 1
+  },
+  "imp" : [ {
+    "impid" : "BidRequest1Impression1"
+  } ]
+}
+ 

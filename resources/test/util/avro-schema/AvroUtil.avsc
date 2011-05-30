@@ -1,0 +1,20 @@
+{
+  "type": "record", 
+  "namespace": "com.reavely",
+  "name": "TestAvroUtilRecord1", 
+  "doc" : "Record For My AvroUtil Testing", 
+  "fields": [
+      {"name": "field1", "type": "string", "required":"true","comment":"Required string field 1."},
+      {"name": "field2", "type": ["int", "null"], "required":"false","comment":"Optional int field 2."},
+      {"name": "array1", "type": {"type": "array", "items": {
+		  "type": "record", 
+		  "namespace": "com.reavely",
+		  "name": "TestAvroUtilSubRecord1", 
+		  "doc" : "Sub Record for My AvroUtil Testing", 
+		  "fields": [
+		      {"name": "subfield1", "type": "string","required":"true","comment":"Required string field in sub record"}
+		  ]
+		}      
+      }, "required":"true","comment":"Required array of sub records"}
+  ]
+}

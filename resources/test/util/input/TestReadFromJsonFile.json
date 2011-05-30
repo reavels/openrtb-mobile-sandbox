@@ -1,0 +1,5 @@
+{ 
+  "field1" : "TestReadFromJsonFile", 
+  "field2":{"int":1},
+  "array1":[{"subfield1":"hello"}]
+}
