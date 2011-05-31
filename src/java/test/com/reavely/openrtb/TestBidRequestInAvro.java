@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mortbay.jetty.Handler;
 import org.mortbay.jetty.Request;
@@ -51,15 +53,15 @@ import com.reavely.util.HttpUtil.HttpResponseHandler;
 public class TestBidRequestInAvro {
 
 	@SuppressWarnings("unused")
-	@Before
-	public void cleanOutputFolder() throws IOException {
+	@BeforeClass
+	public static void cleanOutputFolder() throws IOException {
 		File dir = lookupAbsoluteFilePathFromClasspath("/openrtb/output");
 		FileUtils.cleanDirectory(dir);
 	}
 
-	private File lookupAbsoluteFilePathFromClasspath(String fileOnClasspath) {
+	private static File lookupAbsoluteFilePathFromClasspath(String fileOnClasspath) {
 		// TODO: 1) See if I can find equivalent in open source
-		URL url = this.getClass().getResource(fileOnClasspath);
+		URL url = TestBidRequestInAvro.class.getResource(fileOnClasspath);
 		String file = url.getFile();
 		return new File(file);
 	}
@@ -69,6 +71,10 @@ public class TestBidRequestInAvro {
 
 		expected.put("id", "BidRequest1");
 		expected.put("at", 1);
+		//TEMP
+		//List<Schema> types = schema.getField("at").schema().getTypes();
+		//TEMP
+		
 		Schema impArraySchema = schema.getField("imp").schema();
 
 		GenericData.Array<GenericRecord> imps = new GenericData.Array<GenericRecord>(
@@ -81,22 +87,34 @@ public class TestBidRequestInAvro {
 		return expected;
 	}
 
+	private Schema getSchemaFromNullUnionField(Schema parentSchema, String unionFieldName) {
+		Schema targetFieldSchema = null; 
+		List<Schema> types = parentSchema.getField(unionFieldName).schema().getTypes();
+		// Lets loop around until we find the one that is not the NULL 
+		for (Schema schema : types) {
+			if (schema.getType() != Schema.Type.NULL) {
+				targetFieldSchema = schema;
+				break;
+			}
+		}
+		return targetFieldSchema;
+	}
+	
 	private GenericRecord createAvroBidResponse1(Schema schema) {
 		GenericData.Record bidResponse = new GenericData.Record(schema);
 		bidResponse.put("id", "BidRequest1");
 		bidResponse.put("bidid", "Response1-bidid");
 		// Now for the Seat Bid
-		Schema seatBidArraySchema = schema.getField("seatbid").schema();
-		Schema seatBidSchema = schema.getField("seatbid").schema()
-				.getElementType();
+		Schema seatBidArraySchema = getSchemaFromNullUnionField(schema,"seatbid");
+		
+		Schema seatBidSchema = seatBidArraySchema.getElementType();
 		GenericData.Array<GenericData.Record> seatbids = new GenericData.Array<GenericData.Record>(
 				1, seatBidArraySchema);
 		GenericData.Record seatBid1 = new GenericData.Record(seatBidSchema);
 		seatBid1.put("seat", "BidResponse1-seat");
 		// Now for the bid
 		Schema bidArraySchema = seatBidSchema.getField("bid").schema();
-		Schema bidSchema = seatBidSchema.getField("bid").schema()
-				.getElementType();
+		Schema bidSchema = bidArraySchema.getElementType();
 		GenericData.Array<GenericData.Record> bids = new GenericData.Array<GenericData.Record>(
 				1, bidArraySchema);
 		GenericData.Record bid1 = new GenericData.Record(bidSchema);
@@ -333,7 +351,14 @@ public class TestBidRequestInAvro {
 					response.setContentType("binary/octet-stream");
 					response.setStatus(HttpServletResponse.SC_OK);
 
-					Resource springConfig = new ClassPathResource("/spring-test-bid-request-in-avro.xml");
+					//The JVM needs to be passed an argument to set the spring file name
+					//that will be loaded from the classpath
+					// e.g. -Dspring-file="/spring-test-bid-request-in-avro.xml"
+					String springFileName=System.getProperty("spring-file");
+					if (springFileName == null||springFileName.equals("")) {
+						throw new Exception("Need to set system property spring-file before running test");
+					}
+					Resource springConfig = new ClassPathResource(springFileName);
 					
 					BeanFactory beanFactory = new XmlBeanFactory(springConfig);
 					AvroRequestProcessor arp = (AvroRequestProcessor)beanFactory.getBean("requestProcessor"); 

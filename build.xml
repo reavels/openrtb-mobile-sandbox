@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="openrtb-mobile-sandbox" default="buildjar" basedir=".">
+
+	<property name="classDir" value="${basedir}/bin" />
+	<property name="jarFile" value="openrtb-mobile.jar" />
+    <property name="resourcesDir" value="${basedir}/resources" />
+
+	<target name="buildjar">
+		<jar jarfile="${basedir}/${jarFile}">
+			<fileset dir="${classDir}">
+				<include name="**/*.class" />
+			</fileset>
+			<fileset dir="${resourcesDir}/test"/>
+			<fileset dir="${resourcesDir}/conf"/>
+			<fileset dir="${resourcesDir}/open-rtb-avro-schemas"/>
+		</jar>
+	</target>
+</project>

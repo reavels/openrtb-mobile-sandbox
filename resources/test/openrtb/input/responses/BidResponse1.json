@@ -1,14 +1,24 @@
 {
   "id" : "BidRequest1",
-  "bidid" : "Response1-bidid",
-  "seatbid" : [ {
-    "seat" : "BidResponse1-seat",
-    "bid" : [ {
-      "impid" : "BidRequest1Impression1",
-      "price" : "20 USD",
-      "adid" : "100",
-      "nurl" : "http://localhost:8000/notify",
-      "adm" : "<a href=\"http://localhost:8000/click?aid=100\"><img src=\"http://localhost:8000/content/ad100.jpg\" /></a>"
+  "bidid" : {
+    "string" : "Response1-bidid"
+  },
+  "seatbid" : {
+    "array" : [ {
+      "seat" : "BidResponse1-seat",
+      "bid" : [ {
+        "impid" : "BidRequest1Impression1",
+        "price" : "20 USD",
+        "adid" : {
+          "string" : "100"
+        },
+        "nurl" : {
+          "string" : "http://localhost:8000/notify"
+        },
+        "adm" : {
+          "string" : "<a href=\"http://localhost:8000/click?aid=100\"><img src=\"http://localhost:8000/content/ad100.jpg\" /></a>"
+        }
+      } ]
     } ]
-  } ]
+  }
 }
