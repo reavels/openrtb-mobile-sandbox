@@ -3,9 +3,13 @@
   "bidid" : {
     "string" : "Response1-bidid"
   },
+  "nbr":null,
+  "cur":null,
+  "units":null,
   "seatbid" : {
     "array" : [ {
       "seat" : "BidResponse1-seat",
+      "group" : {"int" : 0},
       "bid" : [ {
         "impid" : "BidRequest1Impression1",
         "price" : "20 USD",

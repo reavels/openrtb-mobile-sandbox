@@ -3,8 +3,17 @@
   "at" : {
     "int" : 1
   },
+  "tmax" : null,
   "imp" : [ {
-    "impid" : "BidRequest1Impression1"
-  } ]
+    "impid" : "BidRequest1Impression1",
+    "wseat" : null,
+    "h" : null,
+    "w" : null,
+    "pos" : null,
+    "instl" : null,
+    "btype" : null,
+    "battr" : null
+  } ],
+  "site" : null
 }
  

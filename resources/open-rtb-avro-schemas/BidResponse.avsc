@@ -4,8 +4,11 @@
   "name": "BidResponse", 
   "doc" : "Top-Level BidResponse Object from OpenRTB Mobile 1.0 Spec", 
   "fields": [
-      {"name": "id",      "type": "string", "required":"true","comment":"ID of the bid request."},
-      {"name": "bidid",   "type": ["string", "null"], "required":"false","comment":"Bid response ID to assist tracking for bidders."},
+      {"name": "id", "type": "string", "required":"true", "comment":"ID of the bid request."},
+      {"name": "bidid", "type": ["string", "null"], "required":"false", "comment":"Bid response ID to assist tracking for bidders."},
+      {"name": "nbr", "type": ["int", "null"], "required":"false", "comment":"Reason for not bidding (see Section 3.6); default is '0' (unknown)."}, 
+      {"name": "cur", "type": ["string", "null"], "required":"false", "comment":"Bid currency using ISO-4217 alphabetic codes; default is 'USD'."}, 
+      {"name": "units", "type": ["int", "null"], "required":"false", "comment":"Bid units (see Section 3.5); default is '0' (CPM)."},
       {"name": "seatbid", "type": [{"type": "array", "items":
 		{
 		  "type": "record", 
@@ -14,6 +17,7 @@
 		  "doc" : "Set of bids by a seat from OpenRTB Mobile 1.0 Spec", 
 		  "fields": [
 		      {"name": "seat", "type": "string","required":"false","comment":"ID of the bidder seat on whose behalf this bid is made."},
+		      {"name": "group", "type": ["int", "null"], "required":"false", "comment":"'1' means impressions must be won-lost as a group; default is '0'."},
 		      {"name": "bid", "type": {"type": "array", "items": 
 				{
 				  "type": "record", 

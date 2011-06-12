@@ -6,15 +6,42 @@
   "fields": [
       {"name": "id", "type": "string", "required":"true","comment":"Unique ID of the bid request (i.e., the overall auction ID)."},
       {"name": "at", "type": ["int", "null"], "required":"false","comment":"Auction type - 1 indicates 1st Price, others denote alternate rules."},
+      {"name": "tmax", "type": ["int","null"], "required":"false","comment":"Maximum time in mS that the exchange will wait for bid responses."},
       {"name": "imp", "type": {"type": "array", "items": {
 		  "type": "record", 
 		  "namespace": "org.openrtb.mobile",
 		  "name": "BidImpression", 
 		  "doc" : "Bid Impression Object used in Bid Request from OpenRTB Mobile 1.0 Spec", 
 		  "fields": [
-		      {"name": "impid", "type": "string","required":"true","comment":"Unique ID of the impression."}
+		      {"name": "impid", "type": "string","required":"true","comment":"Unique ID of the impression."},
+		      {"name": "wseat", "type": [{"type": "array", "items":"string"},"null"],"required":"false","comment":"Array of allowed bidder seats; default is unrestricted."},
+		      {"name": "h", "type": ["int","null"],"required":"false","comment":"Height in pixels."},
+		      {"name": "w", "type": ["int","null"],"required":"false","comment":"Width in pixels."},
+		      {"name": "pos", "type": ["int","null"],"required":"false","comment":"Position of the impression on the page (see Section 3.4)."},
+		      {"name": "instl", "type": ["int","null"],"required":"false","comment":"1 if the ad is interstitial or full screen; else '0' (i.e., no)."},
+		      {"name": "btype", "type": [{"type": "array", "items":"string"},"null"],"required":"false","comment":"Array of blocked ad types (see Section 3.2)."},
+		      {"name": "battr", "type": [{"type": "array", "items":"string"},"null"],"required":"false","comment":"Array of blocked creative attributes (see Section 3.3)."}
 		  ]
 		}      
-      }, "required":"true","comment":"1 object per impression being offered for bid"}
+      }, "required":"true","comment":"1 object per impression being offered for bid"},
+      {"name": "site", "type": [{
+          "type": "record", 
+          "namespace": "org.openrtb.mobile",
+          "name": "Site", 
+          "doc" : "Site Object used in Bid Request from OpenRTB Mobile 1.0 Spec", 
+          "fields": [
+              {"name": "sid", "type": ["string", "null"], "required":"false","comment":"Site ID on the exchange."}, 
+              {"name": "name", "type": ["string", "null"], "required":"false","comment":"Site name; may be masked at publisher's request."}, 
+              {"name": "domain", "type": ["string", "null"], "required":"false","comment":"Domain of the site (e.g., 'foo.com')."}, 
+              {"name": "pid", "type": ["string", "null"], "required":"false","comment":"Publisher ID of the site."}, 
+              {"name": "pub", "type": ["string", "null"], "required":"false","comment":"Publisher name; may be masked at publisher's request."}, 
+              {"name": "pdomain", "type": ["string", "null"], "required":"false","comment":"Domain of the publisher (e.g., 'foopub.com')."}, 
+              {"name": "cat", "type": [{"type": "array", "items":"string"}, "null"], "required":"false","comment":"Array of content categories of the site or page (see Section 3.1)."}, 
+              {"name": "keywords", "type": ["string", "null"], "required":"false","comment":"Comma separated list of keywords related to site content."}, 
+              {"name": "page", "type": ["string", "null"], "required":"false","comment":"URL of the current page."}, 
+              {"name": "ref", "type": ["string", "null"], "required":"false","comment":"Referrer URL that caused navigation to the current page."}, 
+              {"name": "search", "type": ["string", "null"], "required":"false","comment":"Search string that caused navigation to the current page."}
+          ]
+      },"null"], "required":"false","comment":"Site on the exchange."}
   ]
 }
