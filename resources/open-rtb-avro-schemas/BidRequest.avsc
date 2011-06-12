@@ -42,6 +42,25 @@
               {"name": "ref", "type": ["string", "null"], "required":"false","comment":"Referrer URL that caused navigation to the current page."}, 
               {"name": "search", "type": ["string", "null"], "required":"false","comment":"Search string that caused navigation to the current page."}
           ]
-      },"null"], "required":"false","comment":"Site on the exchange."}
+      },"null"], "required":"false","comment":"A 'site' object should be included if the ad supported content is part of a mobile website (as opposed to an application). A bid request must not contain both a 'site' object and an 'app' object."},
+      {"name": "app", "type": [{
+          "type": "record", 
+          "namespace": "org.openrtb.mobile",
+          "name": "App", 
+          "doc" : "App Object used in Bid Request from OpenRTB Mobile 1.0 Spec", 
+          "fields": [
+              { "name":"aid","type": ["string", "null"], "required":"false","comment":"Application ID on the exchange."},
+              { "name":"name","type": ["string","null"], "required":"false","comment":"Application name; may be masked at publisher's request."},
+              { "name":"domain","type": ["string","null"], "required":"false","comment":"Domain of the application (e.g., 'mygame.foo.com')."},
+              { "name":"pid","type": ["string","null"], "required":"false","comment":"Publisher ID of the application."},
+              { "name":"pub","type": ["string","null"], "required":"false","comment":"Publisher name; may be masked at publisher's request."},
+              { "name":"pdomain","type": ["string","null"], "required":"false","comment":"Domain of the publisher (e.g., 'foopub.com')."},
+              { "name":"cat", "type": [{"type": "array", "items":"string"}, "null"], "required":"false","comment":"Array of content categories of the application (see Section 3.1)."}, 
+              { "name":"keywords","type": ["string","null"], "required":"false","comment":"Comma separated list of keywords related to application content."}, 
+              { "name":"ver","type": ["string","null"], "required":"false","comment":"Application version."}, 
+              { "name":"bundle","type": ["string","null"], "required":"false","comment":"Application bundle (e.g., com.foo.mygame)."}, 
+              { "name":"paid","type": ["int","null"], "required":"false","comment":"'1' if the application is a paid version; else '0' (i.e., free)." }
+          ]
+      },"null"], "required":"false","comment":"An 'app' object should be included if the ad supported content is part of a mobile application (as opposed to a mobile website). A bid request must not contain both an 'app' object and a 'site' object."}
   ]
 }
