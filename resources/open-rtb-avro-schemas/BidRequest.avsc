@@ -61,6 +61,40 @@
               { "name":"bundle","type": ["string","null"], "required":"false","comment":"Application bundle (e.g., com.foo.mygame)."}, 
               { "name":"paid","type": ["int","null"], "required":"false","comment":"'1' if the application is a paid version; else '0' (i.e., free)." }
           ]
-      },"null"], "required":"false","comment":"An 'app' object should be included if the ad supported content is part of a mobile application (as opposed to a mobile website). A bid request must not contain both an 'app' object and a 'site' object."}
+      },"null"], "required":"false","comment":"An 'app' object should be included if the ad supported content is part of a mobile application (as opposed to a mobile website). A bid request must not contain both an 'app' object and a 'site' object."},
+      {"name": "device", "type": [{
+          "type": "record", 
+          "namespace": "org.openrtb.mobile",
+          "name": "Device", 
+          "doc" : "Device Object used in Bid Request from OpenRTB Mobile 1.0 Spec", 
+          "fields": [
+              { "name":"did","type": ["string","null"], "required":"false","comment":"SHA1 hashed device ID; IMEI when available, else MEID or ESN."},
+              { "name":"dpid","type": ["string","null"], "required":"false","comment":"SHA1 hashed platform-specific ID (e.g., Android ID or UDID for iOS)."},
+              { "name":"ip","type": ["string","null"], "required":"false","comment":"IP address closest to device (typically a carrier IP)."},
+              { "name":"country","type": ["string","null"], "required":"false","comment":"Country derived from the IP address using ISO-3166-1 Alpha-3."},
+              { "name":"carrier","type": ["string","null"], "required":"false","comment":"Carrier or ISP derived from the IP address."},
+              { "name":"ua","type": ["string","null"], "required":"false","comment":"Device user agent string."},
+              { "name":"make","type": ["string","null"], "required":"false","comment":"Device make (e.g., 'Apple')."},
+              { "name":"model","type": ["string","null"], "required":"false","comment":"Device model (e.g., 'iPhone')."},
+              { "name":"os","type": ["string","null"], "required":"false","comment":"Device operating system (e.g., 'iOS')."},
+              { "name":"osv","type": ["string","null"], "required":"false","comment":"Device operating system version (e.g., '3.1.2')."},
+              { "name":"js","type": ["int","null"], "required":"false","comment":"'1' if the device supports JavaScript; else '0'."},
+              { "name":"loc","type": ["string","null"], "required":"false","comment":"Lat/Long as '-999.99,-999.99' (i.e., south and west are negative)."}
+          ]
+      },"null"], "required":"false","comment":"The 'device' object provides information pertaining to the mobile device including its hardware, platform, location, and carrier."},
+      {"name": "user", "type": [{
+          "type": "record", 
+          "namespace": "org.openrtb.mobile",
+          "name": "User", 
+          "doc" : "User Object used in Bid Request from OpenRTB Mobile 1.0 Spec", 
+          "fields": [
+              { "name":"uid","type": ["string","null"], "required":"false","comment":"Unique consumer ID of this user on the exchange."},
+              { "name":"yob","type": ["int","null"], "required":"false","comment":"Year of birth as a 4-digit integer."},
+              { "name":"gender","type": ["string","null"], "required":"false","comment":"Gender as 'M' male, 'F' female, 'O' other."},
+              { "name":"zip","type": ["string","null"], "required":"false","comment":"Home zip code if USA; else postal code."},
+              { "name":"country","type": ["string","null"], "required":"false","comment":"Home country; using ISO-3166-1 Alpha-3."},
+              { "name":"keywords","type": ["string","null"], "required":"false","comment":"Comma separated list of keywords of consumer interests or intent."}
+          ]
+      },"null"], "required":"false","comment":"The 'user' object contains information known or derived about the human user of the device. Note that the user ID is an exchange artifact (refer to the 'device' object for hardware or platform derived IDs) and may be subject to rotation policies. However, this user ID must be stable long enough to serve reasonably as the basis for frequency capping."}
   ]
 }
