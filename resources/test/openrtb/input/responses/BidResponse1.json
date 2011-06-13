@@ -21,7 +21,12 @@
         },
         "adm" : {
           "string" : "<a href=\"http://localhost:8000/click?aid=100\"><img src=\"http://localhost:8000/content/ad100.jpg\" /></a>"
-        }
+        },
+        "adomain":null, 
+		"iurl":null,   
+		"cid":null,   
+		"crid":null,  
+		"attr":null
       } ]
     } ]
   }

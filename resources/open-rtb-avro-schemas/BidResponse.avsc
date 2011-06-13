@@ -29,7 +29,12 @@
 				      {"name": "price", "type": "string", "required":"true", "comment":"Bid price in the currency and units specified."},
 				      {"name": "adid",  "type": ["string", "null"], "required":"false","comment":"ID that references the ad to be served if the bid wins."},
 				      {"name": "nurl",  "type": ["string", "null"], "required":"false","comment":"Win notice URL."},
-				      {"name": "adm",   "type": ["string", "null"], "required":"false","comment":"Actual XHTML ad markup."}
+				      {"name": "adm",   "type": ["string", "null"], "required":"false","comment":"Actual XHTML ad markup."},
+				      {"name": "adomain","type": ["string", "null"], "required":"false","comment":"Advertiser's primary or top-level domain for advertiser checking."}, 
+				      {"name": "iurl",   "type": ["string", "null"], "required":"false","comment":"Sample image URL (without cache busting) for content checking."}, 
+				      {"name": "cid",   "type": ["string", "null"], "required":"false","comment":"Campaign ID or similar that appears within the ad markup."},
+				      {"name": "crid",  "type": ["string", "null"], "required":"false","comment":"Creative ID for reporting content issues or defects."},
+				      {"name": "attr",  "type": [{"type": "array", "items":"string"}, "null"], "required":"false","comment":"Array of creative attributes (see Section 3.3)."}
 				  ]
 				}      
 		      }, "required":"true","comment":"0 or more bid objects; related to imp objects in the bid request."}

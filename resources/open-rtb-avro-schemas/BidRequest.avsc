@@ -95,6 +95,16 @@
               { "name":"country","type": ["string","null"], "required":"false","comment":"Home country; using ISO-3166-1 Alpha-3."},
               { "name":"keywords","type": ["string","null"], "required":"false","comment":"Comma separated list of keywords of consumer interests or intent."}
           ]
-      },"null"], "required":"false","comment":"The 'user' object contains information known or derived about the human user of the device. Note that the user ID is an exchange artifact (refer to the 'device' object for hardware or platform derived IDs) and may be subject to rotation policies. However, this user ID must be stable long enough to serve reasonably as the basis for frequency capping."}
+      },"null"], "required":"false","comment":"The 'user' object contains information known or derived about the human user of the device. Note that the user ID is an exchange artifact (refer to the 'device' object for hardware or platform derived IDs) and may be subject to rotation policies. However, this user ID must be stable long enough to serve reasonably as the basis for frequency capping."},
+     {"name": "restrictions", "type": [{
+          "type": "record", 
+          "namespace": "org.openrtb.mobile",
+          "name": "Restrictions", 
+          "doc" : "Restrictions Object used in Bid Request from OpenRTB Mobile 1.0 Spec", 
+          "fields": [
+		      {"name": "bcat", "type": [{"type": "array", "items":"string"},"null"],"required":"false","comment":"Array of blocked content categories (see Section 3.1)."},
+		      {"name": "badv", "type": [{"type": "array", "items":"string"},"null"],"required":"false","comment":"Array of blocked advertiser domains."}
+		  ]      
+      },"null"], "required":"false","comment":"The 'restrictions' object allows certain block lists to be passed on the bid request. This technique is useful in several cases including a) when bidders have not download these lists from the exchange offline, b) when block lists are highly dynamic, or c) when passing critical blocked items to ensure they are not missed in less frequent offline downloads. Per the latter case, if a block list is both passed in this object and synchronized offline, bidders must combine them via union (i.e., one does not supersede the other)."}
   ]
 }
